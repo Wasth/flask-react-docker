@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: ./services/web
+      dockerfile: Dockerfile.prod
+    command: gunicorn --bind 0.0.0.0:5000 --chdir redteeb teaching:create_app()
+    volumes:
+      - static_volume:/home/app/web/redteeb/teaching/static
+      - media_volume:/home/app/web/redteeb/teaching/media
+    expose:
+      - 8000
+    env_file:
+      - ./.env.prod
+      - ./.env.prod.db
+    depends_on:
+      - db
+  db:
+    image: postgres:12-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.prod.db
+
+  nginx:
+    build: ./services/nginx
+    volumes:
+      - static_volume:/home/app/web/redteeb/teaching/static
+      - media_volume:/home/app/web/redteeb/teaching/media
+      - ./services/web/redteeb-client/dist/:/etc/nginx/html
+    ports:
+      - 80:80
+    depends_on:
+      - web
+    command: [nginx-debug, '-g', 'daemon off;']
+
+volumes:
+  postgres_data:
+  static_volume:
+  media_volume:
