@@ -2,6 +2,6 @@
 __pycache
 .DS_Store
 ./idea
-./services/web/redteeb-client
-./services/web/redteeb
+services/web/redteeb-client/
+services/web/redteeb/
 
