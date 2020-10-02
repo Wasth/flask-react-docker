@@ -16,6 +16,8 @@ services:
     image: postgres:12-alpine
     volumes:
       - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.dev
     environment:
       - FLASK_APP=redteeb/teaching
     ports:
