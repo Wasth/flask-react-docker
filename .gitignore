@@ -5,3 +5,4 @@ __pycache
 .idea
 services/web/redteeb-client/
 services/web/redteeb/
+services/web/migrations/
