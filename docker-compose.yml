@@ -18,6 +18,10 @@ services:
       - postgres_data:/var/lib/postgresql/data/
     environment:
       - FLASK_APP=redteeb/teaching
+    ports:
+      - 5432:5432
+    env_file:
+      - ./.env.dev
 
 volumes:
   postgres_data:
