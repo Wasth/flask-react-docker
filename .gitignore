@@ -1,4 +1,4 @@
 *.pyc
 __pycache
 .DS_Store
-./idea
+.idea
